@@ -10,71 +10,95 @@ $resultado2 = $mysqli->query($sql2);
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios</title>
-    <link rel="icon" type="image/jpg" href="img/icons8-liga-de-leyendas-96.png"/>
-    <link href="https://cdn.datatables.net/v/bs5/dt-2.0.4/datatables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuarios</title>
+  <link rel="icon" type="image/jpg" href="img/icons8-liga-de-leyendas-96.png" />
+  <link href="https://cdn.datatables.net/v/bs5/dt-2.0.4/datatables.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <style>
+    /* Centrar el contenido de las celdas */
+    .text-center th,
+    .text-center td {
+      text-align: center;
+    }
+
+    .img-small {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+    }
+  </style>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="index.php"><img src="img/icono.png" alt="Icono LOL" width="50" height="50"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link text-light" href="usuarios.php">Usuarios</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="campeones.php">Campeones</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Herramientas
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="builds.php">Builds</a></li>
-          </ul>
-        </li>
-      </ul>
+  <nav class="navbar navbar-expand-lg bg-primary">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="index.php"><img src="img/icono.png" alt="Icono LOL" width="50" height="50"></a>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-light" href="usuarios.php">Usuarios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="campeones.php">Campeones</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Herramientas
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="builds.php">Builds</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
-<div class="container">
+  </nav>
+  <div class="container">
     <br>
     <div class="row">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">AÑADIR</button>
+    <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+          </svg>
+            </button>
     </div>
-    <br><br>
-    <table id="tabla" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>K</th>
-                <th>D</th>
-                <th>A</th>
-                <th>Main</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            while ($fila = $resultado->fetch_assoc()) {
-                $sql3 = "SELECT * FROM campeon WHERE id_c='$fila[main]'";
-                $resultado3 = $mysqli->query($sql3);
-                $fila2 = $resultado3->fetch_assoc();
-                echo "<tr>
+    </div>
+    <table id="tabla" class="table table-striped" style="width:100%">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th class="text-center">K</th>
+          <th class="text-center">D</th>
+          <th class="text-center">A</th>
+          <th class="text-center">Main</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        while ($fila = $resultado->fetch_assoc()) {
+          $sql3 = "SELECT * FROM campeon WHERE id_c='$fila[main]'";
+          $resultado3 = $mysqli->query($sql3);
+          $fila2 = $resultado3->fetch_assoc();
+          echo "<tr>
                         <td>$fila[nick]</td>
-                        <td>$fila[k]</td>
-                        <td>$fila[d]</td>
-                        <td>$fila[a]</td>
-                        <td>$fila2[nombre]</td>
+                        <td class='text-center'>$fila[k]</td>
+                        <td class='text-center'>$fila[d]</td>
+                        <td class='text-center'>$fila[a]</td>
+                        <td class='text-center'>
+
+                          <img src='img/campeones/$fila2[nombre].png' data-toggle='tooltip' data-placement='right' title='$fila2[nombre]' class='img-small'>
+                        </td>
                         <td>
                             <div class='d-flex justify-content-center'>
                                 <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editarModal$fila[id_j]'>
@@ -130,7 +154,7 @@ $resultado2 = $mysqli->query($sql2);
                                 <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#borrarModal$fila[id_j]'>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>
                                         <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z'/>
-                                        <path d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z'/>
+                                        <path d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z'/>
                                     </svg>
                                 </button>
                             </div>
@@ -152,81 +176,95 @@ $resultado2 = $mysqli->query($sql2);
                             </div>
                         </td>
                     </tr>";
-            }
-            $mysqli->close();
-            ?>
-        </tbody>
+        }
+        $mysqli->close();
+        ?>
+      </tbody>
     </table>
-</div>
+  </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document"> 
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">NUEVO USUARIO</h5>
-      </div>
-      <div class="modal-body">
-        Introduce un nuevo nombre de usuario.
-      </div>
-      <div class="añadir">
-        <form class="form-inline" id="añadir" name="añadir" action="añadir2.php" autocomplete="off" method="POST">
-          <div class="input-group mb-2 mr-sm-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text">@</div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">NUEVO USUARIO</h5>
+        </div>
+        <div class="modal-body">
+          Introduce un nuevo nombre de usuario.
+        </div>
+        <div class="añadir">
+          <form class="form-inline" id="añadir" name="añadir" action="añadir2.php" autocomplete="off" method="POST">
+            <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">@</div>
+              </div>
+              <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Nombre de usuario" required>
             </div>
-            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Nombre de usuario" required>
+        </div>
+        <form class="form-inline">
+          <div class="modal-body">
+            Selecciona tu main:
           </div>
+          <div class="modal-body">
+            <select class="form-select" name="main" aria-label="Default select example">
+              <?php
+              while ($fila = $resultado2->fetch_assoc()) {
+                $idc = $fila["id_c"];
+                $nombrecamp = $fila['nombre'];
+                echo "<option value='$idc'>$nombrecamp</option>";
+              }
+              ?>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+            <button type="submit" class="btn btn-primary mb-2">AÑADIR</button>
+          </div>
+        </form>
       </div>
-      <form class="form-inline">
-        <div class="modal-body">
-          Selecciona tu main:
-        </div>
-        <div class="modal-body">
-          <select class="form-select" name="main" aria-label="Default select example">
-            <?php
-            while($fila = $resultado2->fetch_assoc()){
-              $idc = $fila["id_c"];
-              $nombrecamp = $fila['nombre'];
-              echo "<option value='$idc'>$nombrecamp</option>";
-            }
-            ?>
-          </select>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
-          <button type="submit" class="btn btn-primary mb-2">AÑADIR</button>
-        </div>
-      </form>
     </div>
   </div>
-</div>
 
-<script src="js/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/v/bs5/dt-2.0.4/datatables.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/v/bs5/dt-2.0.4/datatables.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
     $(document).ready(function() {
-    $('#tabla').DataTable({
+      $('[data-toggle="tooltip"]').tooltip({
+        placement: 'right',
+        animation: true,
+        delay: 150
+      })
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#tabla').DataTable({
         responsive: true,
         autoWidth: false,
         deferRender: true,
-        lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "Todos"]],
+        lengthMenu: [
+          [10, 20, 50, -1],
+          [10, 20, 50, "Todos"]
+        ],
         language: {
-            lengthMenu: "Mostrar _MENU_ registros",
-            zeroRecords: "No se encontraron resultados",
-            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-            infoFiltered: "(filtrado de un total de _MAX_ registros)",
-            search: "Buscar:",
-            paginate: {
-                next: "Siguiente",
-                previous: "Anterior"
-            },
+          lengthMenu: "Mostrar _MENU_ registros",
+          zeroRecords: "No se encontraron resultados",
+          info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+          infoFiltered: "(filtrado de un total de _MAX_ registros)",
+          search: "Buscar:",
+          paginate: {
+            next: "Siguiente",
+            previous: "Anterior"
+          },
         }
+      });
     });
-});
-</script>
+  </script>
 </body>
+
 </html>
