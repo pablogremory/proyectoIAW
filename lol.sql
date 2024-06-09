@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2024 a las 17:42:59
+-- Tiempo de generación: 05-06-2024 a las 19:30:28
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,7 +43,8 @@ CREATE TABLE `build` (
 --
 
 INSERT INTO `build` (`id_build`, `idcamp`, `obj1`, `obj2`, `obj3`, `obj4`, `obj5`, `obj6`) VALUES
-(1, 9, 14, 27, 7, 23, 33, 72);
+(15, 9, 14, 27, 23, 16, 16, 72),
+(16, 12, 16, 16, 16, 16, 16, 69);
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,13 @@ CREATE TABLE `jugador` (
 --
 
 INSERT INTO `jugador` (`id_j`, `nick`, `k`, `d`, `a`, `main`) VALUES
-(37, 'Pablo', 0, 0, 0, 9);
+(37, 'Pablo', 3, 3, 2, 9),
+(42, 'sacacacaca', 0, 0, 0, 14),
+(44, 'dasdssacca', 0, 0, 0, 10),
+(48, 'ddfh', 0, 0, 0, 20),
+(49, 'fwfw', 0, 0, 0, 24),
+(51, 'dvvd', 0, 0, 0, 14),
+(52, 'vvsdvsdv', 0, 0, 0, 14);
 
 -- --------------------------------------------------------
 
@@ -226,7 +233,7 @@ ALTER TABLE `campeon`
 --
 ALTER TABLE `jugador`
   ADD PRIMARY KEY (`id_j`),
-  ADD UNIQUE KEY `main` (`main`);
+  ADD KEY `main` (`main`) USING BTREE;
 
 --
 -- Indices de la tabla `objetos`
@@ -242,19 +249,19 @@ ALTER TABLE `objetos`
 -- AUTO_INCREMENT de la tabla `build`
 --
 ALTER TABLE `build`
-  MODIFY `id_build` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_build` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `campeon`
 --
 ALTER TABLE `campeon`
-  MODIFY `id_c` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_c` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `id_j` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_j` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `objetos`
