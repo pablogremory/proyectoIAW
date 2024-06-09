@@ -23,61 +23,76 @@ $resultado = $mysqli->query($sql);
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <style>
+        /* Centrar el contenido de las celdas */
+        .text-center th, .text-center td {
+            text-align: center;
+            
+        }
+        .img-small {
+             width: 45px;
+             height: 45px;
+             border-radius: 10px;
+        }
+        .img-small2 {
+             width: 60px;
+             height: 60px;
+             border-radius: 10px;
+        }
+    </style>
 
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-primary">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="index.php"><img src="img/icono.png" alt="Icono LOL" width="50" height="50"></a>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="usuarios.php">Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="campeones.php">Campeones</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Herramientas
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="builds.php">Builds</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<nav class="navbar navbar-expand-lg bg-primary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="index.php"><img src="img/icono.png" alt="Icono LOL" width="50" height="50"></a>    
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-light" href="usuarios.php">Usuarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="campeones.php">Campeones</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Herramientas
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="builds.php">Builds</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
     <div class="container">
         <br>
         <div class="row">
             <!-- Button trigger modal -->
+            <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                AÑADIR
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+          </svg>
             </button>
+    </div>
         </div>
-        <br>
-        <br>
-        <table id="tabla" class="display" style="width:100%">
+        <table id="tabla" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>K</th>
-                    <th>D</th>
-                    <th>A</th>
+                    <th class="text-center">Campeón</th>
+                    <th class="text-center">K</th>
+                    <th class="text-center">D</th>
+                    <th class="text-center">A</th>
                     <th>Build</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -86,12 +101,12 @@ $resultado = $mysqli->query($sql);
                     $idc = $fila['id_c'];
                     $sql3 = "SELECT 
                                 b.*, 
-                                o1.nombre AS nombreObjeto1,
-                                o2.nombre AS nombreObjeto2,
-                                o3.nombre AS nombreObjeto3,
-                                o4.nombre AS nombreObjeto4,
-                                o5.nombre AS nombreObjeto5,
-                                o6.nombre AS nombreObjeto6
+                                o1.id_obj AS idObjeto1,
+                                o2.id_obj AS idObjeto2,
+                                o3.id_obj AS idObjeto3,
+                                o4.id_obj AS idObjeto4,
+                                o5.id_obj AS idObjeto5,
+                                o6.id_obj AS idObjeto6
                             FROM 
                                 build b
                             JOIN 
@@ -109,10 +124,10 @@ $resultado = $mysqli->query($sql);
                             WHERE b.idcamp = $idc";
 
                     echo "<tr>";
-                    echo "<td>$fila[nombre]</td>";
-                    echo "<td>$fila[k]</td>";
-                    echo "<td>$fila[d]</td>";
-                    echo "<td>$fila[a]</td>";
+                    echo "<td class='text-center'><img src='img/campeones/$fila[nombre].png' data-toggle='tooltip' data-placement='right' title='$fila[nombre]' class='img-small'></td>";
+                    echo "<td class='text-center'>$fila[k]</td>";
+                    echo "<td class='text-center'>$fila[d]</td>";
+                    echo "<td class='text-center'>$fila[a]</td>";
                     echo "<td>
                             <!-- Button trigger modal -->
                             <div class='d-flex justify-content-center'>
@@ -134,14 +149,14 @@ $resultado = $mysqli->query($sql);
                     $resultado3 = $mysqli->query($sql3);
                     if ($resultado3->num_rows > 0) {
                         while ($objetos = $resultado3->fetch_assoc()) {
-                            $objeto1 = $objetos['nombreObjeto1'];
-                            $objeto2 = $objetos['nombreObjeto2'];
-                            $objeto3 = $objetos['nombreObjeto3'];
-                            $objeto4 = $objetos['nombreObjeto4'];
-                            $objeto5 = $objetos['nombreObjeto5'];
-                            $objeto6 = $objetos['nombreObjeto6'];
+                            $idobjeto1 = $objetos['idObjeto1'];
+                            $idobjeto2 = $objetos['idObjeto2'];
+                            $idobjeto3 = $objetos['idObjeto3'];
+                            $idobjeto4 = $objetos['idObjeto4'];
+                            $idobjeto5 = $objetos['idObjeto5'];
+                            $idobjeto6 = $objetos['idObjeto6'];
                             echo "
-                                        <table class='table'>
+                                        <table class='table table-striped'>
                                             <thead>
                                                 <tr>
                                                     <th scope='col'>1</th>
@@ -154,12 +169,12 @@ $resultado = $mysqli->query($sql);
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>$objeto1</td>
-                                                        <td>$objeto2</td>
-                                                        <td>$objeto3</td>
-                                                        <td>$objeto4</td>
-                                                        <td>$objeto5</td>
-                                                        <td>$objeto6</td>
+                                                        <td><img src='img/objetos/$idobjeto1.png' class='img-small'></td>
+                                                        <td><img src='img/objetos/$idobjeto2.png' class='img-small'></td>
+                                                        <td><img src='img/objetos/$idobjeto3.png' class='img-small'></td>
+                                                        <td><img src='img/objetos/$idobjeto4.png' class='img-small'></td>
+                                                        <td><img src='img/objetos/$idobjeto5.png' class='img-small'></td>
+                                                        <td><img src='img/objetos/$idobjeto6.png' class='img-small'></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -263,7 +278,7 @@ $resultado = $mysqli->query($sql);
                     </tbody>
                 </table>
             </div>
-            </div>
+            </>
         
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -298,7 +313,13 @@ $resultado = $mysqli->query($sql);
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
             <script src="https://cdn.datatables.net/v/bs5/dt-2.0.4/datatables.min.js"></script>
             <script src="js/bootstrap.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script>
+            $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip({ placement: 'right', animation: true, delay: 150})
+             });
+            </script>
             <script>
                $(document).ready(function() {
     $('#tabla').DataTable({
@@ -323,5 +344,5 @@ $resultado = $mysqli->query($sql);
             </script>
         </body>
         
-        </html>
+</html>
             
