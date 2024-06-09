@@ -39,10 +39,22 @@ $resultado15 = $mysqli->query($sql15);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <style>
+        /* Centrar el contenido de las celdas */
+        .text-center th, .text-center td {
+            text-align: center;
+        }
+        .img-small {
+             width: 50px;
+             height: 50 px;
+             border-radius: 10px;
+        }
+        .img-small2 {
+             width: 60px;
+             height: 60px;
+             border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-primary">
@@ -75,22 +87,27 @@ $resultado15 = $mysqli->query($sql15);
     <br>
     <div class="row">
         <!-- Button trigger modal -->
+        <div class="d-flex justify-content-end">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            CREAR BUILD
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+          </svg>
         </button>
     </div>
-    <br><br>
-    <table id="tabla" class="display" style="width:100%">
+    </div>
+    <div>
+    <table  id="tabla" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>CAMPEÓN</th>
-                <th>OBJETO 1</th>
-                <th>OBJETO 2</th>
-                <th>OBJETO 3</th>
-                <th>OBJETO 4</th>
-                <th>OBJETO 5</th>
-                <th>BOTAS</th>
-                <th>Eliminar</th>
+                <th class='text-center'>OBJETO 1</th>
+                <th class='text-center'>OBJETO 2</th>
+                <th class='text-center'>OBJETO 3</th>
+                <th class='text-center'>OBJETO 4</th>
+                <th class='text-center'>OBJETO 5</th>
+                <th class='text-center'>BOTAS</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -123,15 +140,16 @@ $resultado15 = $mysqli->query($sql15);
                 $sql9 = "SELECT * FROM objetos WHERE id_obj = '$fila[obj6]'";
                 $resultado9 = $mysqli->query($sql9);
                 $fila8 = $resultado9->fetch_assoc();
+                
 
                 echo "<tr>";
-                echo "<td>$fila2[nombre]</td>";
-                echo "<td>$fila3[nombre]</td>";
-                echo "<td>$fila4[nombre]</td>";
-                echo "<td>$fila5[nombre]</td>";
-                echo "<td>$fila6[nombre]</td>";
-                echo "<td>$fila7[nombre]</td>";
-                echo "<td>$fila8[nombre]</td>";
+                echo "<td class='text-center'><img src='img/campeones/$fila2[nombre].png' data-toggle='tooltip' data-placement='right' title='$fila2[nombre]' class='img-small2'></td>";
+                echo "<td class='text-center'><img src='img/objetos/$fila3[id_obj].png' alt='$fila3[nombre]' data-toggle='tooltip' data-placement='right' title='$fila3[nombre]' class='img-small'></td>";
+                echo "<td class='text-center'><img src='img/objetos/$fila4[id_obj].png' alt='$fila4[nombre]' data-toggle='tooltip' data-placement='right' title='$fila4[nombre]' class='img-small'></td>";
+                echo "<td class='text-center'><img src='img/objetos/$fila5[id_obj].png' alt='$fila5[nombre]' data-toggle='tooltip' data-placement='right' title='$fila5[nombre]' class='img-small'></td>";
+                echo "<td class='text-center'><img src='img/objetos/$fila6[id_obj].png' alt='$fila6[nombre]' data-toggle='tooltip' data-placement='right' title='$fila6[nombre]' class='img-small'></td>";
+                echo "<td class='text-center'><img src='img/objetos/$fila7[id_obj].png' alt='$fila7[nombre]' data-toggle='tooltip' data-placement='right' title='$fila7[nombre]' class='img-small'></td>";
+                echo "<td class='text-center'><img src='img/objetos/$fila8[id_obj].png' alt='$fila8[nombre]' data-toggle='tooltip' data-placement='right' title='$fila8[nombre]' class='img-small'></td>";
                 echo "<td>
                     <div class='d-flex justify-content-center'>
                         <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#borrarModal'>
@@ -164,6 +182,7 @@ $resultado15 = $mysqli->query($sql15);
             ?>
         </tbody>
     </table>
+
 </div>
 
 <!-- Modal -->
@@ -260,7 +279,13 @@ $resultado15 = $mysqli->query($sql15);
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-2.0.4/datatables.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+            $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip({ placement: 'bottom', animation: true, delay: 150})
+             });
+</script>
 <script>
     $(document).ready(function() {
     $('#tabla').DataTable({
